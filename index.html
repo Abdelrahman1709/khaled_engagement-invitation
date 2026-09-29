@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Khaled & Rasha — Engagement Invitation</title>
+  
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💍</text></svg>">
+
+  <!-- Google Fonts CDN -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;800;900&family=Great+Vibes&family=Montserrat:wght@300;400;500;600;700&family=Amiri:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-dark: #0a0103;
+      --bg-burgundy: #1a0306;
+      --burgundy-glass: rgba(38, 7, 13, 0.75);
+      --gold-primary: #d4af37;
+      --gold-light: #faeec7;
+      --gold-dark: #8c6703;
+      --gold-glow: rgba(212, 175, 55, 0.5);
+      --text-white: #fff8f0;
+      --text-muted: #d8b7b0;
+      --border-gold: rgba(212, 175, 55, 0.38);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-white);
+      font-family: 'Montserrat', sans-serif;
+      overflow-x: hidden;
+      min-height: 100vh;
+      position: relative;
+    }
+
+    /* Ambient Canvas */
+    #ambient-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* ============================================================
+       SIMPLE, MINIMALIST & ELEGANT OPENING SCREEN
+    ============================================================ */
+    #curtain-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 99999;
+      background: radial-gradient(circle at 50% 45%, #220409 0%, #0d0103 80%, #060002 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      padding: 5rem 1.5rem 4rem;
+      transition: transform 1.1s cubic-bezier(0.65, 0, 0.35, 1), opacity 0.7s ease;
+      cursor: pointer;
+      user-select: none;
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.95);
+    }
+
+    #curtain-overlay.revealed {
+      transform: translateY(-100%);
+      pointer-events: none;
+    }
+
+    /* Top decorative tag */
+    .opening-top-badge {
+      font-family: 'Cinzel', serif;
+      font-size: 0.85rem;
+      letter-spacing: 5px;
+      color: var(--gold-primary);
+      text-transform: uppercase;
+      opacity: 0.85;
+    }
+
+    /* Center Content */
+    .opening-center {
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .opening-ring-icon {
+      font-size: 2.4rem;
+      margin-bottom: 1.2rem;
+      filter: drop-shadow(0 2px 10px var(--gold-glow));
+      animation: gentlePulse 2.5s infinite ease-in-out;
+    }
+
+    @keyframes gentlePulse {
+      0%, 100% { transform: scale(1); opacity: 0.9; }
+      50% { transform: scale(1.08); opacity: 1; filter: drop-shadow(0 4px 18px rgba(212, 175, 55, 0.8)); }
+    }
+
+    .opening-names {
+      font-family: 'Great Vibes', cursive;
+      font-size: clamp(3.6rem, 11vw, 6.2rem);
+      color: var(--gold-light);
+      text-shadow: 0 0 25px rgba(212, 175, 55, 0.4), 0 2px 10px rgba(0, 0, 0, 0.8);
+      line-height: 1.2;
+      margin-bottom: 0.8rem;
+    }
+
+    .opening-amp {
+      font-family: 'Cinzel', serif;
+      font-size: 2rem;
+      color: var(--gold-primary);
+      margin: 0 0.4rem;
+    }
+
+    .opening-date {
+      font-family: 'Cinzel', serif;
+      font-size: 1.05rem;
+      letter-spacing: 4px;
+      color: var(--text-white);
+      margin-bottom: 0.5rem;
+    }
+
+    .opening-ar-label {
+      font-family: 'Amiri', serif;
+      font-size: 1.35rem;
+      color: var(--gold-primary);
+      opacity: 0.9;
+    }
+
+    /* Bottom Swipe Prompt */
+    .opening-bottom {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      animation: floatUpPrompt 2s infinite ease-in-out;
+    }
+
+    .opening-arrow {
+      color: var(--gold-light);
+      font-size: 1.6rem;
+      line-height: 1;
+    }
+
+    .opening-prompt-text {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.88rem;
+      letter-spacing: 2px;
+      color: var(--gold-light);
+      text-transform: uppercase;
+      font-weight: 500;
+    }
+
+    @keyframes floatUpPrompt {
+      0%, 100% { transform: translateY(0); opacity: 0.8; }
+      50% { transform: translateY(-10px); opacity: 1; }
+    }
+
+    /* ============================================================
+       MAIN WRAPPER & SECTIONS
+    ============================================================ */
+    .main-wrapper {
+      position: relative;
+      z-index: 2;
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 3.5rem 1.5rem 6rem;
+    }
+
+    /* Hero Header */
+    .hero-section {
+      text-align: center;
+      padding: 3rem 1rem 2.5rem;
+    }
+
+    .bismillah {
+      font-family: 'Amiri', serif;
+      font-size: 1.7rem;
+      color: var(--gold-light);
+      margin-bottom: 1.5rem;
+      opacity: 0.95;
+      letter-spacing: 1px;
+    }
+
+    .invite-header {
+      font-family: 'Cinzel', serif;
+      font-size: 1.15rem;
+      letter-spacing: 6px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      margin-bottom: 1.2rem;
+    }
+
+    .couple-names {
+      font-family: 'Great Vibes', cursive;
+      font-size: clamp(3.8rem, 11vw, 6.8rem);
+      color: var(--gold-light);
+      text-shadow: 0 0 35px rgba(212, 175, 55, 0.55), 0 4px 15px rgba(0, 0, 0, 0.85);
+      line-height: 1.15;
+      margin-bottom: 0.8rem;
+    }
+
+    .ampersand {
+      font-family: 'Cinzel', serif;
+      font-size: 2.4rem;
+      color: var(--gold-primary);
+      display: inline-block;
+      margin: 0 0.6rem;
+      vertical-align: middle;
+      animation: glowGold 3s infinite alternate;
+    }
+
+    @keyframes glowGold {
+      from { text-shadow: 0 0 10px var(--gold-glow); }
+      to { text-shadow: 0 0 28px rgba(249, 236, 194, 0.95); }
+    }
+
+    .event-badge {
+      display: inline-block;
+      font-family: 'Cinzel', serif;
+      font-size: 0.95rem;
+      letter-spacing: 4px;
+      padding: 9px 28px;
+      border: 1px solid var(--border-gold);
+      border-radius: 30px;
+      background: rgba(212, 175, 55, 0.08);
+      color: var(--gold-light);
+      margin-top: 1.2rem;
+      backdrop-filter: blur(6px);
+    }
+
+    /* Decorative Divider */
+    .ornament-divider {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+      margin: 3rem 0;
+    }
+
+    .ornament-line {
+      height: 1px;
+      width: 120px;
+      background: linear-gradient(90deg, transparent, var(--gold-primary), transparent);
+    }
+
+    .ornament-diamond {
+      color: var(--gold-primary);
+      font-size: 1.2rem;
+    }
+
+    /* ============================================================
+       COUPLE PHOTO SHOWCASE
+    ============================================================ */
+    .photo-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 2rem 0 4.5rem;
+    }
+
+    .photo-frame-wrap {
+      position: relative;
+      padding: 14px;
+      border-radius: 26px;
+      background: linear-gradient(145deg, rgba(212, 175, 55, 0.45), rgba(45, 9, 15, 0.85), rgba(212, 175, 55, 0.25));
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.85), 0 0 45px var(--gold-glow);
+      max-width: 540px;
+      width: 100%;
+      transition: transform 0.5s ease, box-shadow 0.5s ease;
+    }
+
+    .photo-frame-wrap:hover {
+      transform: translateY(-8px) scale(1.015);
+      box-shadow: 0 28px 70px rgba(0, 0, 0, 0.95), 0 0 60px rgba(212, 175, 55, 0.7);
+    }
+
+    .photo-inner {
+      border-radius: 18px;
+      overflow: hidden;
+      border: 2px solid var(--gold-primary);
+      background: #150204;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .photo-inner img {
+      width: 100%;
+      height: auto;
+      display: block;
+      transition: transform 0.8s ease;
+    }
+
+    .photo-frame-wrap:hover .photo-inner img {
+      transform: scale(1.03);
+    }
+
+    .photo-tag {
+      margin-top: 1.6rem;
+      font-family: 'Amiri', serif;
+      font-size: 1.45rem;
+      color: var(--gold-light);
+      text-align: center;
+      display: flex;
+      gap: 18px;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* ============================================================
+       EVENT DETAILS CARDS
+    ============================================================ */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 2rem;
+      margin: 3.5rem 0;
+    }
+
+    .card {
+      background: var(--burgundy-glass);
+      border: 1px solid var(--border-gold);
+      border-radius: 22px;
+      padding: 2.4rem 1.8rem;
+      text-align: center;
+      backdrop-filter: blur(14px);
+      box-shadow: 0 14px 40px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(212, 175, 55, 0.25);
+      transition: all 0.4s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(212, 175, 55, 0.09) 0%, transparent 60%);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      pointer-events: none;
+    }
+
+    .card:hover {
+      transform: translateY(-9px);
+      border-color: var(--gold-primary);
+      box-shadow: 0 22px 50px rgba(0, 0, 0, 0.75), 0 0 30px rgba(212, 175, 55, 0.35);
+    }
+
+    .card:hover::before {
+      opacity: 1;
+    }
+
+    .card-icon {
+      font-size: 2.7rem;
+      margin-bottom: 1.2rem;
+      display: inline-block;
+      filter: drop-shadow(0 3px 10px var(--gold-glow));
+    }
+
+    .card-title {
+      font-family: 'Cinzel', serif;
+      font-size: 1.25rem;
+      letter-spacing: 2px;
+      color: var(--gold-light);
+      margin-bottom: 0.6rem;
+    }
+
+    .card-main {
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 0.4rem;
+    }
+
+    .card-sub {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      font-family: 'Amiri', serif;
+    }
+
+    /* ============================================================
+       COUNTDOWN SECTION
+    ============================================================ */
+    .countdown-section {
+      text-align: center;
+      margin: 4.5rem 0;
+      padding: 3.5rem 1.5rem;
+      background: radial-gradient(circle at center, rgba(65, 12, 22, 0.45) 0%, transparent 80%);
+      border-radius: 28px;
+    }
+
+    .countdown-title {
+      font-family: 'Cinzel', serif;
+      font-size: 1.45rem;
+      letter-spacing: 4px;
+      color: var(--gold-light);
+      margin-bottom: 2.2rem;
+      text-transform: uppercase;
+    }
+
+    .countdown-timer {
+      display: flex;
+      justify-content: center;
+      gap: clamp(10px, 3vw, 24px);
+      flex-wrap: wrap;
+    }
+
+    .time-box {
+      background: rgba(22, 3, 6, 0.88);
+      border: 1px solid var(--border-gold);
+      border-radius: 18px;
+      padding: 1.5rem 1.2rem;
+      min-width: 90px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.65);
+      transition: transform 0.3s;
+    }
+
+    .time-box:hover {
+      transform: scale(1.06);
+      border-color: var(--gold-primary);
+    }
+
+    .time-num {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(2.2rem, 5.5vw, 3rem);
+      font-weight: 700;
+      color: var(--gold-light);
+      line-height: 1;
+      margin-bottom: 0.5rem;
+      text-shadow: 0 0 18px rgba(212, 175, 55, 0.45);
+    }
+
+    .time-label {
+      font-size: 0.8rem;
+      letter-spacing: 2px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+    }
+
+    /* ============================================================
+       LOCATION & ACTION BUTTONS
+    ============================================================ */
+    .location-section {
+      text-align: center;
+      background: var(--burgundy-glass);
+      border: 1px solid var(--border-gold);
+      border-radius: 28px;
+      padding: 3.5rem 2rem;
+      margin: 4.5rem 0;
+      box-shadow: 0 16px 50px rgba(0, 0, 0, 0.65);
+    }
+
+    .location-venue-name {
+      font-family: 'Cinzel', serif;
+      font-size: 2.4rem;
+      color: var(--gold-light);
+      margin-bottom: 1.1rem;
+    }
+
+    .location-details-en {
+      font-size: 1.1rem;
+      color: var(--text-white);
+      margin-bottom: 0.6rem;
+      letter-spacing: 1px;
+    }
+
+    .location-details-ar {
+      font-family: 'Amiri', serif;
+      font-size: 1.45rem;
+      color: var(--gold-light);
+      margin-bottom: 2.4rem;
+      line-height: 1.6;
+    }
+
+    .actions-group {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .gold-action-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 17px 38px;
+      background: linear-gradient(135deg, var(--gold-dark), var(--gold-primary), var(--gold-light));
+      color: #170205;
+      font-family: 'Cinzel', serif;
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-decoration: none;
+      border-radius: 50px;
+      box-shadow: 0 10px 32px rgba(212, 175, 55, 0.45);
+      transition: all 0.3s ease;
+    }
+
+    .gold-action-btn:hover {
+      transform: translateY(-4px) scale(1.03);
+      box-shadow: 0 16px 45px rgba(212, 175, 55, 0.75);
+    }
+
+    .calendar-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 17px 34px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--gold-primary);
+      color: var(--gold-light);
+      font-family: 'Cinzel', serif;
+      font-size: 0.95rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-decoration: none;
+      border-radius: 50px;
+      backdrop-filter: blur(8px);
+      transition: all 0.3s ease;
+    }
+
+    .calendar-btn:hover {
+      background: rgba(212, 175, 55, 0.18);
+      transform: translateY(-4px);
+    }
+
+    /* Embedded Map */
+    .map-embed-wrapper {
+      margin-top: 2.8rem;
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid var(--border-gold);
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.6);
+    }
+
+    .map-embed-wrapper iframe {
+      width: 100%;
+      height: 350px;
+      border: none;
+      filter: invert(90%) hue-rotate(180deg) brightness(85%) contrast(120%);
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 3.5rem 1rem 1rem;
+      color: var(--text-muted);
+    }
+
+    .footer-names {
+      font-family: 'Great Vibes', cursive;
+      font-size: 2.8rem;
+      color: var(--gold-light);
+      margin-bottom: 0.7rem;
+    }
+
+    .footer-quote {
+      font-family: 'Amiri', serif;
+      font-size: 1.35rem;
+      opacity: 0.9;
+      margin-bottom: 1.6rem;
+    }
+
+    @media (max-width: 600px) {
+      .main-wrapper {
+        padding: 2.2rem 1.2rem 4.5rem;
+      }
+      .time-box {
+        min-width: 75px;
+        padding: 1.2rem 0.8rem;
+      }
+      .location-section {
+        padding: 2.8rem 1.2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Ambient Animated Canvas (Rose Petals & Golden Dust) -->
+  <canvas id="ambient-canvas"></canvas>
+
+  <!-- ============================================================
+       SIMPLE, MINIMALIST & ELEGANT OPENING SCREEN
+  ============================================================ -->
+  <div id="curtain-overlay">
+    <div class="opening-top-badge">ENGAGEMENT INVITATION</div>
+
+    <div class="opening-center">
+      <div class="opening-ring-icon">💍</div>
+      <h1 class="opening-names">
+        Khaled <span class="opening-amp">&</span> Rasha
+      </h1>
+      <div class="opening-date">01 · 10 · 2026</div>
+      <div class="opening-ar-label">دعوة حفل خطوبة</div>
+    </div>
+
+    <div class="opening-bottom">
+      <div class="opening-arrow">⌃</div>
+      <div class="opening-prompt-text">Swipe up or tap to open · اسحب لأعلى</div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       MAIN CONTENT
+  ============================================================ -->
+  <main class="main-wrapper">
+
+    <!-- Hero Header -->
+    <header class="hero-section">
+      <div class="bismillah">بِسْمِ اللَّـهِ الرَّحْمَـٰنِ الرَّحِيمِ</div>
+      <p class="invite-header">Together With Their Families</p>
+      
+      <h1 class="couple-names">
+        Khaled <span class="ampersand">&</span> Rasha
+      </h1>
+
+      <div class="event-badge">ENGAGEMENT CELEBRATION</div>
+    </header>
+
+    <div class="ornament-divider">
+      <div class="ornament-line"></div>
+      <div class="ornament-diamond">✦ 💍 ✦</div>
+      <div class="ornament-line"></div>
+    </div>
+
+    <!-- Couple Photo Section -->
+    <section class="photo-container">
+      <div class="photo-frame-wrap">
+        <div class="photo-inner">
+          <img src="photo.jpg" alt="Khaled & Rasha" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=800&q=80';" />
+        </div>
+      </div>
+      <div class="photo-tag">
+        <span>رشا</span>
+        <span style="color: #e0a899;">♥</span>
+        <span>خالد</span>
+      </div>
+    </section>
+
+    <!-- Details Cards Grid -->
+    <section class="cards-grid">
+      <!-- Date Card -->
+      <div class="card">
+        <div class="card-icon">📅</div>
+        <h3 class="card-title">THE DATE</h3>
+        <p class="card-main">October 1, 2026</p>
+        <p class="card-sub">الخميس، ١ أكتوبر ٢٠٢٦</p>
+      </div>
+
+      <!-- Time Card -->
+      <div class="card">
+        <div class="card-icon">🕘</div>
+        <h3 class="card-title">THE TIME</h3>
+        <p class="card-main">9:00 PM</p>
+        <p class="card-sub">الساعة التاسعة مساءً</p>
+      </div>
+
+      <!-- Venue Card -->
+      <div class="card">
+        <div class="card-icon">🏛️</div>
+        <h3 class="card-title">THE VENUE</h3>
+        <p class="card-main">Galila Hall</p>
+        <p class="card-sub">قاعة جليلة للمناسبات</p>
+      </div>
+    </section>
+
+    <!-- Countdown Timer -->
+    <section class="countdown-section">
+      <h3 class="countdown-title">Counting Down To Our Special Day</h3>
+      <div class="countdown-timer">
+        <div class="time-box">
+          <div class="time-num" id="days">00</div>
+          <div class="time-label">Days</div>
+        </div>
+        <div class="time-box">
+          <div class="time-num" id="hours">00</div>
+          <div class="time-label">Hours</div>
+        </div>
+        <div class="time-box">
+          <div class="time-num" id="mins">00</div>
+          <div class="time-label">Mins</div>
+        </div>
+        <div class="time-box">
+          <div class="time-num" id="secs">00</div>
+          <div class="time-label">Secs</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Location & Directions -->
+    <section class="location-section">
+      <h3 class="location-venue-name">Galila Hall</h3>
+      <p class="location-details-en">Shibin El Kom — 200m after the Liver Institute, next to Faculty of Islamic Studies</p>
+      <p class="location-details-ar">شبين الكوم بعد معهد الكبد بـ ٢٠٠ متر بجوار كلية أصول الدين</p>
+
+      <div class="actions-group">
+        <a href="https://maps.app.goo.gl/T4Jbkyh8nScLjtFD6" target="_blank" rel="noopener noreferrer" class="gold-action-btn">
+          <span>📍 Get Directions · افتح الخريطة</span>
+        </a>
+        <a href="https://www.google.com/calendar/render?action=TEMPLATE&text=Khaled+%26+Rasha+Engagement&dates=20261001T190000Z/20261001T230000Z&details=Engagement+celebration+of+Khaled+%26+Rasha+at+Galila+Hall&location=Galila+Hall,+Shibin+El+Kom" target="_blank" rel="noopener noreferrer" class="calendar-btn">
+          <span>📅 Add to Calendar</span>
+        </a>
+      </div>
+
+      <!-- Google Maps Embed -->
+      <div class="map-embed-wrapper">
+        <iframe 
+          src="https://maps.google.com/maps?q=30.5638,31.0034&t=&z=15&ie=UTF8&iwloc=&output=embed" 
+          loading="lazy">
+        </iframe>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <div class="footer-names">Khaled & Rasha</div>
+      <p class="footer-quote">فرحتنا مش هتكمل غير بوجودكم معانا ❤️</p>
+      <p style="font-size: 0.85rem; letter-spacing: 1px; color: rgba(212,175,55,0.7);">October 1, 2026 · Galila Hall</p>
+    </footer>
+
+  </main>
+
+  <!-- ============================================================
+       JAVASCRIPT: INTERACTION, PARTICLES & COUNTDOWN
+  ============================================================ -->
+  <script>
+    // -----------------------------------------------------------
+    // 1. Simple Curtain Reveal (Tap anywhere, swipe up, or wheel)
+    // -----------------------------------------------------------
+    const curtain = document.getElementById('curtain-overlay');
+    let startY = 0;
+
+    function revealSite() {
+      curtain.classList.add('revealed');
+      setTimeout(() => {
+        curtain.style.display = 'none';
+      }, 1150);
+    }
+
+    curtain.addEventListener('click', revealSite);
+
+    curtain.addEventListener('touchstart', (e) => {
+      startY = e.touches[0].clientY;
+    }, { passive: true });
+
+    curtain.addEventListener('touchend', (e) => {
+      const endY = e.changedTouches[0].clientY;
+      if (startY - endY > 35) { // Swiped up
+        revealSite();
+      }
+    }, { passive: true });
+
+    curtain.addEventListener('wheel', (e) => {
+      if (e.deltaY > 15) {
+        revealSite();
+      }
+    }, { passive: true });
+
+    // -----------------------------------------------------------
+    // 2. Countdown Timer (October 1, 2026, 9:00 PM Cairo)
+    // -----------------------------------------------------------
+    const targetDate = new Date('2026-10-01T21:00:00+02:00').getTime();
+
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const diff = targetDate - now;
+
+      if (diff <= 0) {
+        document.getElementById('days').innerText = "00";
+        document.getElementById('hours').innerText = "00";
+        document.getElementById('mins').innerText = "00";
+        document.getElementById('secs').innerText = "00";
+        return;
+      }
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const secs = Math.floor((diff % (1000 * 60)) / 1000);
+
+      document.getElementById('days').innerText = String(days).padStart(2, '0');
+      document.getElementById('hours').innerText = String(hours).padStart(2, '0');
+      document.getElementById('mins').innerText = String(mins).padStart(2, '0');
+      document.getElementById('secs').innerText = String(secs).padStart(2, '0');
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+
+    // -----------------------------------------------------------
+    // 3. Ambient Canvas Particles (Petals & Golden Dust)
+    // -----------------------------------------------------------
+    const canvas = document.getElementById('ambient-canvas');
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    class Particle {
+      constructor() {
+        this.reset();
+      }
+      reset() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * -canvas.height;
+        this.size = Math.random() * 5 + 2;
+        this.speedY = Math.random() * 1.4 + 0.6;
+        this.speedX = Math.sin(Math.random() * Math.PI) * 0.8;
+        this.rotation = Math.random() * 360;
+        this.rotationSpeed = (Math.random() - 0.5) * 1.5;
+        this.isPetal = Math.random() > 0.4;
+        this.opacity = Math.random() * 0.6 + 0.2;
+      }
+      update() {
+        this.y += this.speedY;
+        this.x += Math.sin(this.y * 0.01) * 0.7;
+        this.rotation += this.rotationSpeed;
+
+        if (this.y > canvas.height + 20) {
+          this.reset();
+          this.y = -10;
+        }
+      }
+      draw() {
+        ctx.save();
+        ctx.translate(this.x, this.y);
+        ctx.rotate((this.rotation * Math.PI) / 180);
+        ctx.globalAlpha = this.opacity;
+
+        if (this.isPetal) {
+          ctx.fillStyle = '#8f1725';
+          ctx.beginPath();
+          ctx.ellipse(0, 0, this.size * 1.4, this.size * 0.9, Math.PI / 4, 0, Math.PI * 2);
+          ctx.fill();
+        } else {
+          ctx.fillStyle = '#d4af37';
+          ctx.shadowBlur = 8;
+          ctx.shadowColor = '#faeec7';
+          ctx.beginPath();
+          ctx.arc(0, 0, this.size * 0.45, 0, Math.PI * 2);
+          ctx.fill();
+        }
+        ctx.restore();
+      }
+    }
+
+    for (let i = 0; i < 48; i++) {
+      particles.push(new Particle());
+    }
+
+    function animateParticles() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particles.forEach(p => {
+        p.update();
+        p.draw();
+      });
+      requestAnimationFrame(animateParticles);
+    }
+    animateParticles();
+  </script>
+</body>
+</html>
