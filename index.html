@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="curtain-locked">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -36,6 +36,14 @@
 
     html {
       scroll-behavior: smooth;
+    }
+
+    html.curtain-locked, body.curtain-locked {
+      overflow: hidden !important;
+      height: 100vh !important;
+      position: fixed !important;
+      width: 100% !important;
+      touch-action: none !important;
     }
 
     body {
@@ -78,6 +86,7 @@
       cursor: pointer;
       user-select: none;
       box-shadow: 0 30px 60px rgba(0, 0, 0, 0.95);
+      touch-action: none;
     }
 
     #curtain-overlay.revealed {
@@ -599,7 +608,7 @@
     }
   </style>
 </head>
-<body>
+<body class="curtain-locked">
 
   <!-- Ambient Animated Canvas (Rose Petals & Golden Dust) -->
   <canvas id="ambient-canvas"></canvas>
@@ -756,13 +765,29 @@
     let startY = 0;
 
     function revealSite() {
+      if (curtain.classList.contains('revealed')) return;
       curtain.classList.add('revealed');
+
+      // Keep page pinned strictly to top
+      window.scrollTo(0, 0);
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
+
       setTimeout(() => {
         curtain.style.display = 'none';
-      }, 1150);
+        // Unlock scroll now that curtain is gone
+        document.documentElement.classList.remove('curtain-locked');
+        document.body.classList.remove('curtain-locked');
+        window.scrollTo(0, 0);
+      }, 1100);
     }
 
     curtain.addEventListener('click', revealSite);
+
+    // Prevent background scrolling while touching/dragging curtain
+    curtain.addEventListener('touchmove', (e) => {
+      e.preventDefault();
+    }, { passive: false });
 
     curtain.addEventListener('touchstart', (e) => {
       startY = e.touches[0].clientY;
@@ -770,13 +795,13 @@
 
     curtain.addEventListener('touchend', (e) => {
       const endY = e.changedTouches[0].clientY;
-      if (startY - endY > 35) { // Swiped up
+      if (startY - endY > 30) { // Swiped up
         revealSite();
       }
     }, { passive: true });
 
     curtain.addEventListener('wheel', (e) => {
-      if (e.deltaY > 15) {
+      if (e.deltaY > 10) {
         revealSite();
       }
     }, { passive: true });
